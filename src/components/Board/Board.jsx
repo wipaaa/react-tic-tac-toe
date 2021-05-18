@@ -1,11 +1,15 @@
-const Board = ({ squares }) => {
+import Action from './Action/Action';
+
+const Board = ({ squares, handleOnClick }) => {
   return (
     <div className='board'>
       {squares &&
         squares.map((square, index) => (
-          <button key={index} className='board__action'>
-            {square}
-          </button>
+          <Action
+            key={index}
+            state={square}
+            handleOnClick={() => handleOnClick(index)}
+          />
         ))}
     </div>
   );
