@@ -14,6 +14,7 @@ module.exports = {
   },
   entry: {
     main: path.resolve(__dirname, '../src/index.js'),
+    vendor: path.resolve(__dirname, '../src/vendor.js'),
   },
   output: {
     clean: true,
@@ -36,7 +37,7 @@ module.exports = {
         use: ['html-loader'],
       },
       {
-        test: /\.(jpe?g|svg|png|gif)$/i,
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/i,
         use: [
           {
             loader: 'file-loader',
