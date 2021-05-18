@@ -6,8 +6,9 @@ const App = () => {
   const PLAYER_X = 'x';
   const PLAYER_O = 'o';
 
-  const [squares, setSquares] = useState(Array(9).fill(null));
+  const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [player, setPlayer] = useState(PLAYER_X);
+  const [step, setStep] = useState(0);
 
   const handleWinner = (sqrs) => {
     const lines = [
@@ -31,8 +32,11 @@ const App = () => {
   };
 
   const handleOnClick = (position) => {
-    const squares_ = squares.slice();
+    const history_ = history.slice(0, step + 1);
+    const current_ = history_[history_.length - 1];
     const player_ = player === PLAYER_X ? PLAYER_O : PLAYER_X;
+    const squares_ = current_.squares ?? Array(9).fill(null);
+    const step_ = history_.length;
 
     if (handleWinner(squares_) || squares_[position]) {
       return;
@@ -40,12 +44,17 @@ const App = () => {
 
     squares_[position] = player;
 
+    setHistory([...history_, { squares: squares_ }]);
     setPlayer(player_);
-    setSquares(squares_);
+    setStep(step_);
   };
 
+  const current = history[step];
+  const squares = current.squares;
   const winner = handleWinner(squares);
   const status = winner ? `Winner: ${winner}` : `Next: ${player}`;
+
+  console.log(squares);
 
   return (
     <>
