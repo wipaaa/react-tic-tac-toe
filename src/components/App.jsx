@@ -35,7 +35,7 @@ const App = () => {
     const history_ = history.slice(0, step + 1);
     const current_ = history_[history_.length - 1];
     const player_ = player === PLAYER_X ? PLAYER_O : PLAYER_X;
-    const squares_ = current_.squares ?? Array(9).fill(null);
+    const squares_ = current_.squares.slice() ?? Array(9).fill(null);
     const step_ = history_.length;
 
     if (handleWinner(squares_) || squares_[position]) {
@@ -49,16 +49,27 @@ const App = () => {
     setStep(step_);
   };
 
+  const handleOnJumpTo = (step) => {
+    setPlayer(step % 2 === 0 ? PLAYER_X : PLAYER_O);
+    setStep(step);
+  };
+
   const current = history[step];
   const squares = current.squares;
   const winner = handleWinner(squares);
   const status = winner ? `Winner: ${winner}` : `Next: ${player}`;
-
-  console.log(squares);
+  const moves = history.map((step, move) => {
+    return (
+      <button key={move} onClick={() => handleOnJumpTo(move)}>
+        Move ${move}
+      </button>
+    );
+  });
 
   return (
     <>
       <div>{status}</div>
+      <div>{moves}</div>
       <Board {...{ squares, handleOnClick }} />
     </>
   );
