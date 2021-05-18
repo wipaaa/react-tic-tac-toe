@@ -1,0 +1,17 @@
+@use '../../styles/variable';
+
+.status {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 200px;
+  height: 45px;
+  padding: 0rem 0.8rem;
+  background: variable.$color__light;
+  border: 2px solid variable.$color__dark--100;
+  border-radius: variable.$dimen__board--radius;
+  font-size: 1rem;
+}
