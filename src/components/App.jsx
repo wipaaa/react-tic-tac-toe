@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
+import './App.scss';
 import Board from './Board/Board';
+import History from './History/History';
 
 const App = () => {
   const PLAYER_X = 'x';
@@ -32,21 +34,21 @@ const App = () => {
   };
 
   const handleOnClick = (position) => {
-    const history_ = history.slice(0, step + 1);
-    const current_ = history_[history_.length - 1];
-    const player_ = player === PLAYER_X ? PLAYER_O : PLAYER_X;
-    const squares_ = current_.squares.slice() ?? Array(9).fill(null);
-    const step_ = history_.length;
+    const _history = history.slice(0, step + 1);
+    const _current = _history[_history.length - 1];
+    const _player = player === PLAYER_X ? PLAYER_O : PLAYER_X;
+    const _squares = _current.squares.slice() ?? Array(9).fill(null);
+    const _step = _history.length;
 
-    if (handleWinner(squares_) || squares_[position]) {
+    if (handleWinner(_squares) || _squares[position]) {
       return;
     }
 
-    squares_[position] = player;
+    _squares[position] = player;
 
-    setHistory([...history_, { squares: squares_ }]);
-    setPlayer(player_);
-    setStep(step_);
+    setHistory([..._history, { squares: _squares }]);
+    setPlayer(_player);
+    setStep(_step);
   };
 
   const handleOnJumpTo = (step) => {
@@ -58,18 +60,11 @@ const App = () => {
   const squares = current.squares;
   const winner = handleWinner(squares);
   const status = winner ? `Winner: ${winner}` : `Next: ${player}`;
-  const moves = history.map((step, move) => {
-    return (
-      <button key={move} onClick={() => handleOnJumpTo(move)}>
-        Move ${move}
-      </button>
-    );
-  });
 
   return (
     <>
       <div>{status}</div>
-      <div>{moves}</div>
+      <History {...{ history, handleOnJumpTo }} />
       <Board {...{ squares, handleOnClick }} />
     </>
   );

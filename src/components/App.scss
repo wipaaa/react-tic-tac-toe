@@ -1,7 +1,16 @@
 @use '../styles/variable';
 
+*,
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
 #root {
   position: relative;
   width: 100vw;
   height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
 }
