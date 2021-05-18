@@ -1,9 +1,8 @@
 const path = require('path');
+const common = require('../webpack.config');
+const { merge } = require('webpack-merge');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
-module.exports = {
+module.exports = merge(common, {
   mode: 'development',
   target: 'web',
   devtool: 'source-map',
@@ -12,14 +11,10 @@ module.exports = {
     open: true,
     port: 8000,
   },
-  entry: {
-    main: path.resolve(__dirname, '../src/index.js'),
-    vendor: path.resolve(__dirname, '../src/vendor.js'),
-  },
   output: {
     clean: true,
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, '../dist/'),
   },
   module: {
     rules: [
@@ -37,32 +32,29 @@ module.exports = {
         use: ['html-loader'],
       },
       {
+        test: /\.(js|jsx)$/i,
+        include: /src/,
+        use: ['babel-loader'],
+      },
+      {
         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/i,
         use: [
           {
             loader: 'file-loader',
             options: {
-              name: '[name].bundle.[ext]',
+              name: '[name].[ext]',
               outputPath: 'asset/icons',
               publicPath: 'asset/icons',
             },
           },
         ],
       },
-      {
-        test: /\.(js|jsx)$/i,
-        include: /src/,
-        use: ['babel-loader'],
-      },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '../public/index.html'),
+      template: path.resolve(__dirname, './public/index.html'),
     }),
     new MiniCssExtractPlugin({ filename: '[name].bundle.css' }),
   ],
-  resolve: {
-    extensions: ['.js', '.jsx'],
-  },
-};
+});
