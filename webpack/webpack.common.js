@@ -36,6 +36,19 @@ module.exports = {
         use: ['html-loader'],
       },
       {
+        test: /\.(jpe?g|svg|png|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].bundle.[ext]',
+              outputPath: 'asset/icons',
+              publicPath: 'asset/icons',
+            },
+          },
+        ],
+      },
+      {
         test: /\.(js|jsx)$/i,
         include: /src/,
         use: ['babel-loader'],
