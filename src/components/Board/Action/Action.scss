@@ -1,0 +1,33 @@
+@use '../../../styles/variable';
+
+.board__action {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: variable.$color__light;
+  border: 2px solid variable.$color__dark--100;
+  border-radius: variable.$dimen__board--radius;
+  box-shadow: 10px 10px 80px variable.$color__dark--100;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+  transition-property: background-color, border-color, color, transform;
+  cursor: pointer;
+
+  &.--state-x i {
+    font-size: variable.$dimen__board--icon-x;
+  }
+
+  &.--state-o i {
+    font-size: variable.$dimen__board--icon-o;
+  }
+
+  &:hover {
+    background-color: variable.$color__primary--100;
+    border-color: variable.$color__primary;
+    color: variable.$color__primary;
+    transform: scale(1.1);
+  }
+}

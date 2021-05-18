@@ -1,13 +1,18 @@
-import iconPlayerX from '../../../asset/icons/icon-x.svg';
-import iconPlayerO from '../../../asset/icons/icon-o.svg';
+import './Action.scss';
 
 const Action = ({ state, handleOnClick }) => {
-  const alt = state && `icon for player ${state}`;
-  const icon = state === 'x' ? iconPlayerX : iconPlayerO;
-
   return (
-    <button className='board__action' onClick={handleOnClick}>
-      {state && <img src={icon} alt={alt} />}
+    <button
+      className={`board__action ${state && `--state-${state}`}`}
+      onClick={handleOnClick}
+    >
+      {state && (
+        <i
+          className={
+            state === 'x' ? 'ri-close-line' : 'ri-checkbox-blank-circle-line'
+          }
+        ></i>
+      )}
     </button>
   );
 };

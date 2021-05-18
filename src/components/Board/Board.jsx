@@ -1,3 +1,4 @@
+import './Board.scss';
 import Action from './Action/Action';
 
 const Board = ({ squares, handleOnClick }) => {

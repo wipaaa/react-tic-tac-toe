@@ -1,0 +1,20 @@
+@use '../../styles/variable';
+
+.board {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  gap: variable.$dimen__board--gap;
+
+  grid-template-columns: repeat(
+    variable.$dimen__board--cols,
+    variable.$dimen__board--size
+  );
+
+  grid-template-rows: repeat(
+    variable.$dimen__board--rows,
+    variable.$dimen__board--size
+  );
+}
