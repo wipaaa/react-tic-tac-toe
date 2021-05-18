@@ -48,4 +48,7 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({ filename: '[name].bundle.css' }),
   ],
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
 };
