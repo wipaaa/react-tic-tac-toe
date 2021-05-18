@@ -3,6 +3,7 @@ import { useState } from 'react';
 import './App.scss';
 import Board from './Board/Board';
 import History from './History/History';
+import Status from './Status/Status';
 
 const App = () => {
   const PLAYER_X = 'x';
@@ -59,11 +60,13 @@ const App = () => {
   const current = history[step];
   const squares = current.squares;
   const winner = handleWinner(squares);
-  const status = winner ? `Winner: ${winner}` : `Next: ${player}`;
+  const message = winner
+    ? `Winner: ${winner}`
+    : `Next: ${player.toUpperCase()}`;
 
   return (
     <>
-      <div>{status}</div>
+      <Status {...{ message }} />
       <History {...{ history, handleOnJumpTo }} />
       <Board {...{ squares, handleOnClick }} />
     </>
